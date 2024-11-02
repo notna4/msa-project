@@ -1,34 +1,81 @@
 package com.example.alarmwars;
 
-import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.animation.LinearInterpolator;
-import android.widget.ImageView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final int RC_SIGN_IN = 9001; // Unique request code for sign-in
+    private GoogleSignInClient googleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView blob1 = findViewById(R.id.blob1);
-        ImageView blob2 = findViewById(R.id.blob2);
+        // Check if the user is already signed in
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            // User is already signed in, go to AlarmsActivity
+            Intent intent = new Intent(MainActivity.this, AlarmsActivity.class);
+            startActivity(intent);
+            finish(); // Close MainActivity so the user can't go back
+        }
 
-        // Animation for blob1
-        ObjectAnimator animator1 = ObjectAnimator.ofFloat(blob1, "translationY", -50f, 50f);
-        animator1.setDuration(3000);
-        animator1.setRepeatMode(ObjectAnimator.REVERSE);
-        animator1.setRepeatCount(ObjectAnimator.INFINITE);
-        animator1.setInterpolator(new LinearInterpolator());
-        animator1.start();
+        // Configure Google Sign-In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)) // Use the Web Client ID
+                .requestEmail()
+                .build();
 
-        // Animation for blob2
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(blob2, "translationX", -30f, 30f);
-        animator2.setDuration(4000);
-        animator2.setRepeatMode(ObjectAnimator.REVERSE);
-        animator2.setRepeatCount(ObjectAnimator.INFINITE);
-        animator2.setInterpolator(new LinearInterpolator());
-        animator2.start();
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Set up the sign-in button
+        Button signInButton = findViewById(R.id.sign_in);
+        signInButton.setOnClickListener(v -> initiateSignIn());
+    }
+
+    private void initiateSignIn() {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            // Signed in successfully
+            String idToken = account.getIdToken();
+            Log.d("MainActivity", "ID Token: " + idToken);
+            // Go to AlarmsActivity on successful sign-in
+            Intent intent = new Intent(MainActivity.this, AlarmsActivity.class);
+            startActivity(intent);
+            finish(); // Optional: Finish MainActivity if you don't want to go back
+        } catch (ApiException e) {
+            Log.w("MainActivity", "Sign-in failed: " + e.getStatusCode());
+            Toast.makeText(this, "Sign-in failed: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+        }
     }
 }

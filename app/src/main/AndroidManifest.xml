@@ -21,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AlarmsActivity" />
     </application>
+
+    <meta-data
+        android:name="com.google.android.gms.auth.api.signin.CLIENT_ID"
+        android:value="@string/default_web_client_id" />
 
 </manifest>

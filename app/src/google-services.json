@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "49231975605",
+    "project_id": "ronbase-4f0c6",
+    "storage_bucket": "ronbase-4f0c6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49231975605:android:3d868521126bae99365afc",
+        "android_client_info": {
+          "package_name": "com.auth.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49231975605-8pvflf904ptqic5inhaal1dp2q2m6ldl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.auth.test",
+            "certificate_hash": "be67282dedf1062fd745d42e5103bcf43f76e4ad"
+          }
+        },
+        {
+          "client_id": "49231975605-rkqckokbhnmeosegsbu4gap4f73nrdvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7ROqh5-D_sEfo5DeHuNbwqm2Hj8YDi0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49231975605-ql49lp1ersfud6fiaemkoastg1m5movl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "49231975605-cfqkgfqbagu3eis5usrvdlhhm7lrrenq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.megaTodo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49231975605:android:8f28cb5577ece491365afc",
+        "android_client_info": {
+          "package_name": "com.example.alarmwars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49231975605-rkqckokbhnmeosegsbu4gap4f73nrdvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7ROqh5-D_sEfo5DeHuNbwqm2Hj8YDi0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49231975605-ql49lp1ersfud6fiaemkoastg1m5movl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "49231975605-cfqkgfqbagu3eis5usrvdlhhm7lrrenq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.megaTodo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
