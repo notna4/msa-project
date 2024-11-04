@@ -6,4 +6,16 @@
     </style>
 
     <style name="Theme.AlarmWars" parent="Base.Theme.AlarmWars" />
+
+    <!-- styles.xml -->
+
+        <!-- clock theme -->
+        <style name="ClockTheme" parent="Theme.AppCompat.Light">
+            <item name="android:textColorPrimary">@color/text_primary_spinner</item>
+            <item name="android:textColorSecondary">@color/text_secondary_spinner</item>
+            <item name="android:colorAccent">@color/accent_spinner</item>
+            <item name="android:background">@color/black</item>
+        </style>
+
+
 </resources>

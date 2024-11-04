@@ -40,8 +40,6 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
 
-            // using intent i have class AlarmReceiver class which inherits
-            // BroadcastReceiver
             Intent intent = new Intent(this, AlarmRing.class);
 
             // we call broadcast using pendingIntent

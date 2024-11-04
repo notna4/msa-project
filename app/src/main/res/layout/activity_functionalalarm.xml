@@ -5,31 +5,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@android:color/black"
         tools:context=".FunctionalAlarmActivity">
-    <!--Added Time picker just to pick the alarm time-->
-    <!--gravity is aligned to center-->
+    <!-- Set text color to white -->/>
 
-    <!--Added Toggle Button to set the alarm on or off-->
-    <!--ByDefault toggleButton is set to false-->
+    <TextView
+            android:id="@+id/topTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="83dp"
+            android:text="Add your alarm"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:paddingTop="30dp"/>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"/>
+    <!--ByDefault stopAlarmButton is set to false-->
     <TimePicker
             android:id="@+id/timePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="419dp"
+            android:layout_height="420dp"
             android:layout_gravity="center"
-            android:numbersBackgroundColor="@color/cardview_light_background"
-            android:numbersTextColor="#685BDC"
-    />
+            android:timePickerMode="spinner"
+            android:theme="@style/ClockTheme"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
     <ToggleButton
             android:id="@+id/stopAlarmButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_margin="40dp"
             android:checked="false"
             android:onClick="OnToggleClicked"
+            android:textSize="25sp"
+            android:textStyle="bold"
             android:textColor="#685BDC"
     />
 
     <!--"OnToggleClicked" method will be implemented in MainActivity.java -->
-
 </LinearLayout>

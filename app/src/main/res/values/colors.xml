@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+ <!--clock colors -->
+    <color name="text_primary_spinner">#685BDC</color>
+    <color name="text_secondary_spinner">#f5dad3</color>
+    <color name="accent_spinner">#67e225</color>
 </resources>
