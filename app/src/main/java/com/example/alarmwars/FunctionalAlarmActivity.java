@@ -29,7 +29,6 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
 
     }
 
-    // OnToggleClicked() method is implemented the time functionality
     public void OnToggleClicked(View view) {
         long time;
         if (((ToggleButton) view).isChecked()) {
@@ -42,7 +41,6 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, AlarmRing.class);
 
-            // we call broadcast using pendingIntent
             pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
             time = (calendar.getTimeInMillis() - (calendar.getTimeInMillis() % 60000));
