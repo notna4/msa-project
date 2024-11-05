@@ -1,5 +1,12 @@
 package com.example.alarmwars;
 
+import android.app.AlarmManager;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -29,34 +36,55 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
 
     }
 
+    private void setExactAlarm(Calendar calendar) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            } else {
+                showExactAlarmPermissionDialog();
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private void showExactAlarmPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exact Alarm Permission Needed")
+                .setMessage("This app needs permission to schedule exact alarms. Please enable it in settings.")
+                .setPositiveButton("Go to Settings", (dialog, which) -> {
+                    // Launch app settings to allow user to enable exact alarms
+                    Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:" + getPackageName()));
+                    startActivity(intent);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+
     public void OnToggleClicked(View view) {
-        long time;
         if (((ToggleButton) view).isChecked()) {
             Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned ON", Toast.LENGTH_SHORT).show();
             Calendar calendar = Calendar.getInstance();
 
-            // calendar is called to get current time in hour and minute
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+            calendar.set(Calendar.SECOND, 0);
+
+            if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
 
             Intent intent = new Intent(this, AlarmRing.class);
-
             pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-            time = (calendar.getTimeInMillis() - (calendar.getTimeInMillis() % 60000));
-            if (System.currentTimeMillis() > time) {
-                // setting time as AM and PM
-                if (Calendar.AM_PM == 0)
-                    time = time + (1000 * 60 * 60 * 12);
-                else
-                    time = time + (1000 * 60 * 60 * 24);
-            }
-            // Alarm rings continuously until toggle button is turned off
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 10000, pendingIntent);
-            // alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (time * 1000), pendingIntent);
+            setExactAlarm(calendar); // Use setExactAlarm method
         } else {
-            alarmManager.cancel(pendingIntent);
-            Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned off", Toast.LENGTH_SHORT).show();
+            if (pendingIntent != null) {
+                alarmManager.cancel(pendingIntent);
+                Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned off", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
+
 }
