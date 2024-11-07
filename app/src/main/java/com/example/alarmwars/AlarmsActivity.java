@@ -4,10 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,7 +58,25 @@ public class AlarmsActivity extends AppCompatActivity {
         // Set initials in the profile image (for simplicity)
         // This assumes you have a way to display initials in the profileImage
         // You may want to overlay a TextView on the ImageView for initials
+
+        Button gotoalarmsetButton = findViewById(R.id.goToAlarmSet);
+
+        gotoalarmsetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSetAlarm();  // Call the method to start the new activity
+            }
+        });
+
+
     }
+
+    private void goToSetAlarm() {
+        // Check if the current context is an Activity
+        Intent intent = new Intent(this, FunctionalAlarmActivity.class);
+        startActivity(intent);
+    }
+
 
     private void showLogoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
