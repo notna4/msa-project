@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomToggleButtonStyle">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textColor">@drawable/text_color_selector</item> <!-- Apply the color selector -->
+        <item name="android:background">@drawable/rounder</item>
+    </style>
+</resources>
+
+

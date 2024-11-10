@@ -1,54 +1,327 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/black"
-        tools:context=".FunctionalAlarmActivity">
-    <!-- Set text color to white -->/>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".FunctionalAlarmActivity">
+
+    <!-- Back Button -->
 
     <TextView
-            android:id="@+id/topTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="83dp"
-            android:text="Add your alarm"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"
-            android:paddingTop="30dp"/>
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="50"/>
-    <!--ByDefault stopAlarmButton is set to false-->
-    <TimePicker
-            android:id="@+id/timePicker"
-            android:layout_width="419dp"
-            android:layout_height="420dp"
-            android:layout_gravity="center"
-            android:timePickerMode="spinner"
-            android:theme="@style/ClockTheme"/>
+        android:id="@+id/backBtn"
+        android:layout_width="74dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Back"
+        android:textAlignment="center"
+        android:textColor="#685BDC"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/topTextView"
+        android:layout_width="217dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Create alarm"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Time Picker -->
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="357dp"
+        android:layout_height="217dp"
+        android:theme="@style/ClockTheme"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topTextView" />
+
+    <!-- Days of Week Section -->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/daysLayout"-->
+    <!--        android:layout_width="297dp"-->
+    <!--        android:layout_height="118dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/timePicker">-->
+
+    <!--    </LinearLayout>-->
+
+    <!-- Invite Button -->
+
+    <!-- Save Button -->
+
+    <TextView
+        android:id="@+id/inviteBtn"
+        android:layout_width="81dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="27dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Invite"
+        android:textAlignment="viewEnd"
+        android:textColor="#685BDC"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/players"
+        android:layout_width="81dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="300dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Players"
+        android:textAlignment="viewStart"
+        android:textColor="#EFEFEF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TextView
+        android:id="@+id/saveBtn"
+        android:layout_width="61dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="27dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Save"
+        android:textAlignment="viewEnd"
+        android:textColor="#685BDC"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Toggle Button for Alarm -->
 
     <ToggleButton
-            android:id="@+id/stopAlarmButton"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_margin="40dp"
-            android:checked="false"
-            android:onClick="OnToggleClicked"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="#685BDC"
-    />
+        android:id="@+id/stopAlarmButton"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="40dp"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:onClick="OnToggleClicked"
+        android:textColor="#685BDC"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/playersList"
+        tools:layout_editor_absoluteX="69dp" />
 
-    <!--"OnToggleClicked" method will be implemented in MainActivity.java -->
-</LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="407dp"
+        android:layout_height="129dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker">
+
+        <ToggleButton
+            android:id="@+id/tueToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:text="Tue"
+            android:textColor="#FAFAFA"
+            android:textOff="Tue"
+            android:textOn="Tue"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/sunToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="17dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:text="Sun"
+            android:textColor="#FAFAFA"
+            android:textOff="Sun"
+            android:textOn="Sun"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wedToggle" />
+
+        <ToggleButton
+            android:id="@+id/friToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="74dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="17dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:text="Fri"
+            android:textColor="#FAFAFA"
+            android:textOff="Fri"
+            android:textOn="Fri"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/satToggle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monToggle" />
+
+        <ToggleButton
+            android:id="@+id/satToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="17dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:text="Sat"
+            android:textColor="#FAFAFA"
+            android:textOff="Sat"
+            android:textOn="Sat"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/thuToggle"
+            app:layout_constraintTop_toBottomOf="@+id/tueToggle" />
+
+        <ToggleButton
+            android:id="@+id/thuToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="17dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:text="Thu"
+            android:textColor="#FAFAFA"
+            android:textOff="Thu"
+            android:textOn="Thu"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sunToggle"
+            app:layout_constraintTop_toBottomOf="@+id/wedToggle" />
+
+        <ToggleButton
+            android:id="@+id/wedToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:text="Wed"
+            android:textColor="#FAFAFA"
+            android:textOff="Wed"
+            android:textOn="Wed"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tueToggle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/monToggle"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounder"
+            android:checked="false"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Mon"
+            android:textColor="#FAFAFA"
+            android:textOff="Mon"
+            android:textOn="Mon"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tueToggle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/playersList"
+        android:layout_width="409dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/players">
+
+        <TextView
+            android:id="@+id/myEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/nunito_bold"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.285" />
+
+        <Switch
+            android:id="@+id/isAlarmActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginBottom="27dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/myEmail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.666" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
