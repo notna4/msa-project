@@ -8,6 +8,13 @@
         <item name="android:textColor">@drawable/text_color_selector</item> <!-- Apply the color selector -->
         <item name="android:background">@drawable/rounder</item>
     </style>
+    <style name="Theme.App.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
 </resources>
 
 
