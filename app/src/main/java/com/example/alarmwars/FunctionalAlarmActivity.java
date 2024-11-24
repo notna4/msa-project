@@ -462,6 +462,34 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void onSwitchClicked(View view) {
+        Switch alarmSwitch = (Switch) view;
+
+        if (alarmSwitch.isChecked()) {
+            Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned ON", Toast.LENGTH_SHORT).show();
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+            calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+            calendar.set(Calendar.SECOND, 0);
+
+            if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+
+            Intent intent = new Intent(this, AlarmRing.class);
+            pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+            setExactAlarm(calendar); // Use setExactAlarm method
+        } else {
+            if (pendingIntent != null) {
+                alarmManager.cancel(pendingIntent);
+                Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned OFF", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
     public void OnToggleClicked(View view) {
         if (((ToggleButton) view).isChecked()) {
             Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned ON", Toast.LENGTH_SHORT).show();

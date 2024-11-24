@@ -23,7 +23,7 @@ public class AlarmRing extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // Start the popup activity to show the alarm control UI (Stop/Snooze)
         Intent popupIntent = new Intent(context, AlarmPopupActivity.class);
-        popupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP); // Start the popup as a new task, clear any existing tasks
+        popupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(popupIntent); // Start the popup activity
 
         // Play the alarm sound
@@ -39,8 +39,6 @@ public class AlarmRing extends BroadcastReceiver {
         if (!ringtone.isPlaying()) {
             ringtone.play();
         }
-
-
     }
 
     // Stop the alarm

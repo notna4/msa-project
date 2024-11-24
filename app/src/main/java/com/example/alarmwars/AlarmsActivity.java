@@ -182,11 +182,15 @@ public class AlarmsActivity extends AppCompatActivity {
         // Generate a random code for the alarm
         String alarmId = UUID.randomUUID().toString();
 
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY); // 24-hour format
+        int currentMinute = calendar.get(Calendar.MINUTE);
+
         // Prepare the data to be saved
         Map<String, Object> alarmData = new HashMap<>();
         alarmData.put("password", "1234");
-        alarmData.put("hour", 6);
-        alarmData.put("minutes", 6);
+        alarmData.put("hour", currentHour);
+        alarmData.put("minutes", currentMinute);
         alarmData.put("daysToRing", Arrays.asList("Mo", "Tu", "We"));
 
         // Add members (list of emails under the "true" key)
