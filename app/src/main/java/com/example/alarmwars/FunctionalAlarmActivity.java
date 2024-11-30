@@ -469,9 +469,49 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
             Toast.makeText(FunctionalAlarmActivity.this, "Alarm turned ON", Toast.LENGTH_SHORT).show();
             Calendar calendar = Calendar.getInstance();
 
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
-            calendar.set(Calendar.SECOND, 0);
+            if (sundayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            }
+            if (saturdayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            }
+            if (fridayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+            }
+            if (thursdayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+            }
+            if (wednesdayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+            }
+            if (tuesdayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+            }
+            if (mondayToggleButton.isChecked()) {
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            }
+
 
             if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);

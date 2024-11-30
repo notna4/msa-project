@@ -1,14 +1,20 @@
 package com.example.alarmwars;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,12 +40,21 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout buttonContainer; // Container to hold the buttons
     private TextView selectedNumbersTextView; // To display selected numbers
 
+    private TextView timerTextView;
+
+    private Handler handler = new Handler();
+    private long startTime = 0L;
+    private boolean isTimerRunning = false;
+
+    private TextView bottomText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        bottomText = findViewById(R.id.bottomText);
+        timerTextView = findViewById(R.id.timer);
         yourTaskTextView = findViewById(R.id.yourTask);
         buttonContainer = findViewById(R.id.buttonContainer);
         selectedNumbersTextView = findViewById(R.id.selectedNumbersTextView);
@@ -55,6 +72,47 @@ public class GameActivity extends AppCompatActivity {
             }
         } else {
             Log.d("aici", "No user is currently signed in.");
+        }
+    }
+
+    private void displayTime(long elapsedTimeMillis) {
+        long minutes = (elapsedTimeMillis / (1000 * 60)) % 60;
+        long seconds = (elapsedTimeMillis / 1000) % 60;
+        long milliseconds = elapsedTimeMillis % 1000;
+
+        timerTextView.setText(String.format("%02d:%02d:%03d", minutes, seconds, milliseconds));
+    }
+
+    private final Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            long elapsedTimeMillis = System.currentTimeMillis() - startTime;
+            displayTime(elapsedTimeMillis);
+
+            handler.postDelayed(this, 10); // Update every 10 milliseconds
+        }
+    };
+
+    private void startTimer() {
+        if (!isTimerRunning) {
+            startTime = System.currentTimeMillis();
+            handler.post(timerRunnable);
+            isTimerRunning = true;
+            displayTime(startTime);
+        }
+    }
+
+    private void stopTimer() {
+        if (isTimerRunning) {
+            handler.removeCallbacks(timerRunnable);
+            isTimerRunning = false;
+            bottomText.setText("Back to menu");
+            yourTaskTextView.setText("\uD83C\uDF89 Congratulations!!! \uD83C\uDF89");
+            yourTaskTextView.setOnClickListener(view -> {
+                Intent intent = new Intent(GameActivity.this, AlarmsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            });
         }
     }
 
@@ -100,9 +158,10 @@ public class GameActivity extends AppCompatActivity {
                                         if (nextGameMap != null) {
                                             Log.d("aici", "nextGame data: " + nextGameMap.toString());
                                             if (nextGameMap.get("DESCENDING") != null) {
-                                                yourTaskTextView.setText("Your task: DESCENDING");
+                                                yourTaskTextView.setText("Select the numbers in descending order:");
                                                 List<List<Long>> descendingData = (List<List<Long>>) nextGameMap.get("DESCENDING");
                                                 createButtons(descendingData);
+                                                startTimer();
                                             }
                                         } else {
                                             Log.d("aici", "nextGame data is null or empty.");
@@ -136,7 +195,20 @@ public class GameActivity extends AppCompatActivity {
             for (Long number : row) {
                 Button button = new Button(this);
                 button.setText(String.valueOf(number));
-                button.setBackgroundColor(Color.LTGRAY);
+//                button.setBackgroundColor(Color.LTGRAY);
+                button.setBackgroundResource(R.drawable.rounder);
+                button.setTextColor(Color.WHITE);
+                int widthInDp = 100; // Change this to the desired width
+                int heightInDp = 100; // Change this to the desired height
+                float density = getResources().getDisplayMetrics().density;
+                int widthInPx = (int) (widthInDp * density);
+                int heightInPx = (int) (heightInDp * density);
+
+                button.setLayoutParams(new ViewGroup.LayoutParams(widthInPx, heightInPx));
+
+                Typeface nunitoBold = ResourcesCompat.getFont(this, R.font.nunito_bold);
+                button.setTypeface(nunitoBold);
+                button.setTextSize(20);
 
                 // Handle button click
                 button.setOnClickListener(v -> {
@@ -144,11 +216,13 @@ public class GameActivity extends AppCompatActivity {
                     if (!selectedNumbers.contains(num)) {
                         // Add the number to the list if not already present
                         selectedNumbers.add(num);
-                        button.setBackgroundColor(Color.GREEN); // Indicate the button is selected
+                        button.setBackgroundResource(R.drawable.rounder2);
                     } else {
                         // Remove the number from the list if it is already selected
                         selectedNumbers.remove((Integer) num); // Remove by value, not index
-                        button.setBackgroundColor(Color.LTGRAY); // Reset button color
+//                        button.setBackgroundColor(Color.LTGRAY); // Reset button color
+                        button.setBackgroundResource(R.drawable.rounder);
+
                     }
 
                     if (selectedNumbers.size() == 9) {
@@ -156,7 +230,8 @@ public class GameActivity extends AppCompatActivity {
                         if (isDescending(selectedNumbers)) {
                             AlarmRing.stopAlarm(); // Stop the alarm
                             // Optionally set another alarm for snoozing (e.g., set an alarm for a few minutes later)(to be added)
-                            finish(); // Close the popup
+//                            finish(); // Close the popup
+                            stopTimer();
                             Log.d("aici", "Selected numbers are in descending order!");
                         } else {
                             Log.d("aici", "Selected numbers are NOT in descending order.");
@@ -187,6 +262,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void updateSelectedNumbersTextView() {
-        selectedNumbersTextView.setText("Selected Numbers: " + selectedNumbers.toString());
+        selectedNumbersTextView.setText(selectedNumbers.toString());
     }
 }
