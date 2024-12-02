@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,6 +32,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.alarmwars.AlarmRing.ringtone;
+
 public class GameActivity extends AppCompatActivity {
 
     private Map<String, List<List<Integer>>> nextGame;
@@ -53,11 +56,30 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        bottomText = findViewById(R.id.bottomText);
+
         timerTextView = findViewById(R.id.timer);
         yourTaskTextView = findViewById(R.id.yourTask);
         buttonContainer = findViewById(R.id.buttonContainer);
         selectedNumbersTextView = findViewById(R.id.selectedNumbersTextView);
+
+
+
+
+            // Back to Menu button
+        bottomText = findViewById(R.id.bottomText);
+            bottomText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Navigate back to AlarmsActivity
+                    Intent intent = new Intent(GameActivity.this, AlarmsActivity.class);
+                    ringtone.stop();
+                    ringtone = null;
+                    startActivity(intent);
+                    // Optional: Close GameActivity to remove it from the back stack
+                    finish();
+                }
+            });
+
 
         // Get the current user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
