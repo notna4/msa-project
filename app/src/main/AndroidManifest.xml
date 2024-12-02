@@ -3,12 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <meta-data
+        android:name="com.google.android.gms.auth.api.signin.CLIENT_ID"
+        android:value="@string/default_web_client_id" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +28,10 @@
         android:theme="@style/Theme.AlarmWars"
         tools:targetApi="31">
         <activity
+            android:name=".GameActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AlarmWars" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -30,20 +41,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".AlarmsActivity" />
-        <activity android:name=".FunctionalAlarmActivity"></activity>
-        <activity android:name=".AlarmPopupActivity"
-                  android:theme="@style/Theme.App.Dialog"
-                  android:exported="true">
+        <activity android:name=".FunctionalAlarmActivity" />
+        <activity
+            android:name=".AlarmPopupActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.Dialog">
+
             <!-- Set this as the activity in case we want to show it explicitly -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmRing"
-                  android:enabled="true"
-                  android:exported="true">
+        <receiver
+            android:name=".AlarmRing"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
@@ -51,18 +66,9 @@
             </intent-filter>
         </receiver>
 
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
-
-
     </application>
-
-    <meta-data
-        android:name="com.google.android.gms.auth.api.signin.CLIENT_ID"
-        android:value="@string/default_web_client_id" />
 
 </manifest>

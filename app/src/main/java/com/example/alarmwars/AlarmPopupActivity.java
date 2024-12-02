@@ -1,6 +1,9 @@
 package com.example.alarmwars;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -8,9 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AlarmPopupActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                startActivityForResult(intent, 12);
+            }
+        }
 
         // Set the dialog theme (defined below in the styles)
         setContentView(R.layout.activity_alarm_popup);
@@ -23,13 +34,14 @@ public class AlarmPopupActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
                         WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN); // Ensure full-screen popup
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
-        // Stop button functionality
+        // Button to start the game!
         Button stopButton = findViewById(R.id.stop_button);
         stopButton.setOnClickListener(v -> {
-            AlarmRing.stopAlarm(); // Stop the alarm
-            finish(); // Close the popup
+            Intent intent = new Intent(AlarmPopupActivity.this, GameActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         // Snooze button functionality (optional)
