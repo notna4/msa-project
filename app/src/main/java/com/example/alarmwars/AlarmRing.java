@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi;
 public class AlarmRing extends BroadcastReceiver {
 
 
-    private static Ringtone ringtone; // Keep a reference to stop the alarm later
+    static Ringtone ringtone; // Keep a reference to stop the alarm later
     private static final int REQUEST_CODE_OVERLAY_PERMISSION = 1234;
 
 
