@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             // Go to AlarmsActivity on successful sign-in
             Intent intent = new Intent(MainActivity.this, AlarmsActivity.class);
             startActivity(intent);
-            finish(); // Optional: Finish MainActivity if you don't want to go back
+            finish(); 
         } catch (ApiException e) {
             Log.w("MainActivity", "Sign-in failed: " + e.getStatusCode());
             Toast.makeText(this, "Sign-in failed: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
