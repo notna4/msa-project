@@ -80,7 +80,7 @@ public class AlarmsActivity extends AppCompatActivity {
             }
         });
 
-        alarmsLayout = findViewById(R.id.alarmsLayout); // LinearLayout or any other container for alarms
+        alarmsLayout = findViewById(R.id.alarmsLayout); 
         fetchAlarms();
     }
 
@@ -126,7 +126,7 @@ public class AlarmsActivity extends AppCompatActivity {
                     if (members != null && members.containsKey("true")) {
                         List<String> memberList = (List<String>) members.get("true");
                         if (memberList != null && memberList.contains(userEmail)) {
-                            // Add this alarm to the list (You can create a string or format data as you need)
+                            // Add this alarm to the list 
                             String alarmId = alarmSnapshot.getKey();  // Get the alarm ID
                             String alarmDetails = "Alarm ID: " + alarmId +
                                     "\nTime: " + alarmData.get("hour") + ":" + alarmData.get("minutes") +
