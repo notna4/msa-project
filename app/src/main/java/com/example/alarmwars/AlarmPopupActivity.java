@@ -23,7 +23,7 @@ public class AlarmPopupActivity extends AppCompatActivity {
             }
         }
 
-        // Set the dialog theme (defined below in the styles)
+        // Set the dialog theme 
         setContentView(R.layout.activity_alarm_popup);
 
         // Prevent dismissing the popup via the back button
@@ -44,12 +44,11 @@ public class AlarmPopupActivity extends AppCompatActivity {
             finish();
         });
 
-        // Snooze button functionality (optional)
+        // Snooze button functionality 
         Button snoozeButton = findViewById(R.id.snooze_button);
         snoozeButton.setOnClickListener(v -> {
             // Handle snoozing logic
             AlarmRing.stopAlarm(); // Stop the alarm
-            // Optionally set another alarm for snoozing (e.g., set an alarm for a few minutes later)(to be added)
             finish(); // Close the popup
         });
     }
