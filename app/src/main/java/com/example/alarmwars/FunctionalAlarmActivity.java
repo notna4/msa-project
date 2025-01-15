@@ -107,7 +107,7 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
         setOpacityOnToggle(saturdayToggleButton);
         setOpacityOnToggle(sundayToggleButton);
 
-        playersList = findViewById(R.id.playersList); // This is your LinearLayout
+        playersList = findViewById(R.id.playersList); 
         playersRef = FirebaseDatabase.getInstance().getReference("members");
         myEmail = findViewById(R.id.myEmail);
         myEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
@@ -134,7 +134,7 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
                     DataSnapshot falseMembersSnapshot = dataSnapshot.child("false");
 
                     // Get reference to the container LinearLayout (playersList)
-                    LinearLayout playersList = findViewById(R.id.playersList); // Ensure this LinearLayout exists in your XML
+                    LinearLayout playersList = findViewById(R.id.playersList); 
 
                     // Clear any previous views in the container
                     playersList.removeAllViews();
@@ -374,7 +374,7 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
             return;
         }
 
-        // Prepare to update the members list based on the checkbox status
+    
 //
 //
 //        boolean isChecked = emailCheckBoxes.containsKey(currentUserEmail) && emailCheckBoxes.get(currentUserEmail).isChecked();
@@ -393,29 +393,6 @@ public class FunctionalAlarmActivity extends AppCompatActivity {
         // Log the reference being used to update Firebase
         Log.d("AlarmUpdate", "Updating Firebase at path: alarms/" + alarmId + "/members");
 
-
-        // NOT WORKING YET
-//        if (isChecked) {
-//            membersRef.child("true").child(currentUserEmail).setValue(true)
-//                    .addOnCompleteListener(task -> {
-//                        if (task.isSuccessful()) {
-//                            Log.d("AlarmUpdate", "User email added to 'true' list");
-//                        } else {
-//                            Log.e("AlarmUpdate", "Error adding user email to 'true' list: " + task.getException());
-//                        }
-//                    });
-//            membersRef.child("false").child(currentUserEmail).removeValue();
-//        } else {
-//            membersRef.child("false").child(currentUserEmail).setValue(true)
-//                    .addOnCompleteListener(task -> {
-//                        if (task.isSuccessful()) {
-//                            Log.d("AlarmUpdate", "User email added to 'false' list");
-//                        } else {
-//                            Log.e("AlarmUpdate", "Error adding user email to 'false' list: " + task.getException());
-//                        }
-//                    });
-//            membersRef.child("true").child(currentUserEmail).removeValue();
-//        }
 
         // Update the existing alarm in Firebase
         databaseRef.child(alarmId).updateChildren(updates)
