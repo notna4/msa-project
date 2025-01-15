@@ -75,7 +75,6 @@ public class GameActivity extends AppCompatActivity {
                     ringtone.stop();
                     ringtone = null;
                     startActivity(intent);
-                    // Optional: Close GameActivity to remove it from the back stack
                     finish();
                 }
             });
@@ -88,7 +87,7 @@ public class GameActivity extends AppCompatActivity {
             String userEmail = currentUser.getEmail();
             if (userEmail != null) {
                 checkAlarms(userEmail);
-//                Log.d("aici", nextGame.get("DESCENDING").toString());
+
             } else {
                 Log.d("aici", "User email is null.");
             }
@@ -139,7 +138,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void checkAlarms(String userEmail) {
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("alarms");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance(
                 "https://ronbase-4f0c6-default-rtdb.europe-west1.firebasedatabase.app/"
         ).getReference("alarms");
@@ -251,7 +249,6 @@ public class GameActivity extends AppCompatActivity {
                         // Check if the list is in descending order
                         if (isDescending(selectedNumbers)) {
                             AlarmRing.stopAlarm(); // Stop the alarm
-                            // Optionally set another alarm for snoozing (e.g., set an alarm for a few minutes later)(to be added)
 //                            finish(); // Close the popup
                             stopTimer();
                             Log.d("aici", "Selected numbers are in descending order!");
